@@ -1,0 +1,127 @@
+<!--Autor: Jesimar da Silva Arantes-->
+<!--Data: 09/02/2017-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="serviços google maps">
+        <meta name="author" content="Jesimar da Silva Arantes">
+        <link rel="icon" href="../img/favicon.ico">
+        <title>
+            Web Page - Jesimar - Serviços - Google Maps
+        </title>
+        <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+        <link href = "../css/styles.css" rel = "stylesheet" />
+        <script src="../js/javascript.js"></script>
+
+        <style type="text/css">
+            #map_content {
+                height: 400px;
+                margin: 10px 0;
+            }
+        </style>
+
+        <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBn5OZ2JkHhJcdkaDT0fNLAo4zI6K3aeK0&sensor=false"></script>
+        <script type="text/javascript">
+            var map;
+            var directionsService = new google.maps.DirectionsService();
+            var info = new google.maps.InfoWindow({maxWidth: 200});
+
+            var marker = new google.maps.Marker({
+                title: 'São Carlos',
+                icon: '../img/marker.png',
+                position: new google.maps.LatLng('-22.001673', '-47.897967')
+            });
+
+            function initialize() {
+                var options = {
+                    zoom: 15,
+                    center: marker.position,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+
+                map = new google.maps.Map($('#map_content')[0], options);
+
+                marker.setMap(map);
+
+                google.maps.event.addListener(marker, 'click', function () {
+                    info.setContent('Rua Tomás Antônio Gonzaga, número 75, apto 12, Parque Arnold Schimidt, São Carlos - SP, CEP: 13566-583');
+                    info.open(map, marker);
+                });
+            }
+
+            $(document).ready(function () {
+                $('#form_route').submit(function () {
+                    info.close();
+                    marker.setMap(null);
+
+                    var directionsDisplay = new google.maps.DirectionsRenderer();
+                    var request = {
+                        origin: $("#route_from").val(),
+                        destination: marker.position,
+                        travelMode: google.maps.DirectionsTravelMode.DRIVING
+                    };
+                    directionsService.route(request, function (response, status) {
+                        if (status == google.maps.DirectionsStatus.OK) {
+                            directionsDisplay.setDirections(response);
+                            directionsDisplay.setMap(map);
+                        }
+                    });
+                    return false;
+                });
+            });
+        </script>
+    </head>
+
+    <body onload="initialize()">	
+        <div class="container-fluid">
+            <div id="topo"> 
+                <h1>SERVIÇOS EM GERAL</h1>
+                <h2>Jesimar da Silva Arantes</h2>
+                <div id = "barra-topo">
+                    <a href="../index.html" class="btn btn-primary" role="button">Principal</a>
+                    <a href="professional.html" class="btn btn-primary" role="button">Profissional</a>
+                    <a href="production.html" class="btn btn-primary" role="button">Produção Científica</a>
+                    <a href="contact.html" class="btn btn-primary" role="button">Contato</a>
+                    <a href="services.html" class="btn btn-primary" role="button">Serviços em Geral</a>
+                    <a href="downloads.html" class="btn btn-primary" role="button">Downloads</a>
+                    <a href="videos.html" class="btn btn-primary" role="button">Vídeos</a>
+                </div>
+            </div>
+
+            <div id = "geral">				
+                <div id = "conteudo">
+                    <h3>Google Maps Route</h3>
+                    <form action="" method="post" id="form_route">
+                        <label>Origem: <input type="text" id="route_from" size="50" /></label>
+                        <input type="submit" value="Traçar Rota" />
+                    </form>
+                    <div id="map_content"></div>
+                    <br>
+                </div>
+            </div>
+
+            <div class = "center">
+                <a href="http://validator.w3.org/check?uri=referer">
+                    <img src="http://www.w3.org/Icons/valid-xhtml10"
+                         alt="Valid XHTML 1.0 Transitional" height="31" width="88" />
+                </a>
+
+                <a href="http://jigsaw.w3.org/css-validator/check/referer">
+                    <img style="border:0;width:88px;height:31px"
+                         src="http://jigsaw.w3.org/css-validator/images/vcss"
+                         alt="CSS v&aacute;lido!" />
+                </a>
+            </div>
+
+            <div id="rodape"> 
+                <h2>CopyLeft - Jesimar da Silva Arantes - 2017</h2>
+            </div>
+        </div>
+        <script src="../jquery/jquery-3.1.1.min.js"></script>
+        <script src="../bootstrap/js/bootstrap.min.js"></script>
+    </body>
+</html>
