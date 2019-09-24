@@ -1,24 +1,24 @@
 <!--Autor: Jesimar da Silva Arantes-->
-<!--Data: 09/02/2017-->
+<!--Data: 24/09/2019-->
 
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">	
-        <meta name="description" content="Edição na Wikipédia">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="serviços jogo em HTML 5.0">
         <meta name="author" content="Jesimar da Silva Arantes">
         <link rel="icon" href="../img/favicon.ico">
         <title>
-            Web Page - Jesimar - Wikipédia
+            Web Page - Jesimar - Serviços - Jogo em HTML 5.0
         </title>
         <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" />
         <link href = "../css/styles.css" rel = "stylesheet" />
         <script src="../js/javascript.js"></script>
     </head>
 
-    <body>
+	<body onkeyDown='movebarra(event.which);'>
         <div class="container-fluid">
             <div id="topo"> 
                 <h1>SERVIÇOS EM GERAL</h1>
@@ -34,35 +34,83 @@
                 </div>
             </div>
 
-            <div id = "geral">
+            <div id = "geral">				
                 <div id = "conteudo">
+                    <h3>Jogo em HTML 5.0</h3>
+                    <br />
+					<center><canvas id=canvas width=400 height=450 style='border:1px solid #4a4a4a;'></canvas></center>
+					<script>
+						canvas=document.getElementById('canvas').getContext('2d');
+						blocos=[];
+						for(x=0;x<8;x++)
+							for(y=0;y<5;y++)
+								blocos.push([x*50,y*20,true]);
+						x=20;
+						y=200;
+						tamanho=10;
+						dx=2;
+						dy=2;
+						barrax=150;
+						function anda()
+						{  
+							x+=dx;
+							y+=dy;
+							if(x<tamanho)dx*=-1;
+							if(y<tamanho)dy*=-1;
+							if(x>400-tamanho)dx*=-1;
+							if(y>450-tamanho)dy*=-1;
+							canvas.fillStyle='#ffffff';
+							canvas.fillRect(0,0,400,450);
+							canvas.fillStyle='#000000';
+							canvas.fillRect(barrax,430,100,20);
+							canvas.fillStyle='#ff0000';
+							canvas.beginPath();
+							canvas.arc(x,y,tamanho,0,Math.PI*2,false);
+							canvas.fill();
+							for(c=0;c<blocos.length;c++)if(blocos[c][2])
+							{  
+								canvas.fillStyle='#0000ff';
+								canvas.fillRect(blocos[c][0],blocos[c][1],50,20);
+							}
+							for(c=0;c<blocos.length;c++)if(blocos[c][2])
+							{  
+								var dif=y-blocos[c][1]-tamanho;
+								if((dy<0&&(dif>0&&dif<20))||(dy>0&&(dif<0&&dif>-20)))
+								{  
+									if(x>blocos[c][0]&&x<blocos[c][0]+50)
+									{  
+										blocos[c][2]=false;
+										dy*=-1;
+									}
+								}
+							}
+							if(y>430-tamanho)
+							{  
+								var dif=x-barrax;
+								if(dif>-10&&dif<110)
+								{  
+									dy*=-1;
+									if(dif>-10&&dif<15)dx=-3;
+									if(dif>=15&&dif<50)dx=-2;
+									if(dif>=50&&dif<85)dx=2;
+									if(dif>=85&&dif<110)dx=3;
+									y=430-tamanho;
+								}
+							}
+							if(y<450-tamanho)setTimeout('anda();',10);
+							else alert('Fim de jogo');
+						}
+						anda();
+						function movebarra(tecla)
+						{  
+							/*alert(tecla);*/
+							if (tecla==37)
+								barrax-=40;
+							if (tecla==39)
+								barrax+=40;
+						}
+					</script>
 
-                    <h3>Páginas na Wikipédia Editadas</h3>
-
-                    <table class="table table-striped table-bordered">
-                        <tr>
-                            <td colspan = "2" class = "center">
-                                <b>Edições Wikipédia</b>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <b>Contribuição: Código em C </b>
-                            </td>
-                            <td>								
-                                <a href="https://pt.wikipedia.org/wiki/Fun%C3%A7%C3%A3o_de_Ackermann" target="_blank">Função de Ackermann</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <b>Contribuição: Código em C e Figura da sequência de Collatz começando em 77031 além de textos adicionados.</b>
-                            </td>
-                            <td>								
-                                <a href="https://pt.wikipedia.org/wiki/Conjectura_de_Collatz" target="_blank">Conjectura de Collatz</a>
-                            </td>
-                        </tr>
-                    </table>
-                    <br>
                 </div>
             </div>
 
@@ -82,11 +130,8 @@
             <div id="rodape"> 
                 <h2>CopyLeft - Jesimar da Silva Arantes - 2019</h2>
             </div>
-
         </div>
-
         <script src="../jquery/jquery-3.1.1.min.js"></script>
         <script src="../bootstrap/js/bootstrap.min.js"></script>
-
     </body>
 </html>
