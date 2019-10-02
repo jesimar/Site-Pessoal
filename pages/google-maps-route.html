@@ -2,7 +2,7 @@
 <!--Data: 09/02/2017-->
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -51,27 +51,6 @@
                     info.open(map, marker);
                 });
             }
-
-            $(document).ready(function () {
-                $('#form_route').submit(function () {
-                    info.close();
-                    marker.setMap(null);
-
-                    var directionsDisplay = new google.maps.DirectionsRenderer();
-                    var request = {
-                        origin: $("#route_from").val(),
-                        destination: marker.position,
-                        travelMode: google.maps.DirectionsTravelMode.DRIVING
-                    };
-                    directionsService.route(request, function (response, status) {
-                        if (status == google.maps.DirectionsStatus.OK) {
-                            directionsDisplay.setDirections(response);
-                            directionsDisplay.setMap(map);
-                        }
-                    });
-                    return false;
-                });
-            });
         </script>
     </head>
 

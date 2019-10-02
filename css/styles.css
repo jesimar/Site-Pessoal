@@ -25,6 +25,7 @@ h2 {
 
 h3 {
     color: #06F;
+    text-shadow: 1px 0px 0px #555555;
     text-align: center;
     font-family: verdana, arial, sans-serif;
     font-size: 12px;
@@ -89,16 +90,29 @@ b{
     float: left;
     text-align: center;
 }
+
+.esquerda a:hover{
+	background-color: #DDD;
+}
+
 .direita {
     width: 33%;
     float: right;
     text-align: center;
 }
 
+.direita a:hover{
+	background-color: #DDD;
+}
+
 .centro {
     width: 33%;
     float: left;
     text-align: center;
+}
+
+.centro a:hover{
+	background-color: #DDD;
 }
 
 .blackJust {
@@ -126,6 +140,15 @@ b{
     text-align:center;
     padding-top: 2px;
     padding-bottom: 8px;
+}
+
+.btn{
+	width: 146px;
+}
+
+.efeito{
+	background-color: rgba(0, 0, 100, 0.15);
+	padding: 6px 5px 6px 5px;
 }
 
 table a:link{
@@ -160,13 +183,12 @@ ul a:hover {
     color: #888;
 }
 
-a:link { 
-    color: #FFF; 
+a:link {
     text-decoration: none
 } 
 
 a:visited { 
-    color: #EEE;
+    color: #000;
 }
 
 a:active { 
